@@ -39,10 +39,8 @@ public:
 	int Height();//¸ß¶È
 protected:
 	BTNode<T>* root;
-	int i = 0;
 private:
 	int Height(BTNode<T>* t);
-	void Travelsal(void(*Visit)(T& x),BTNode<T>* t);
 	void Exchanges(BTNode<T>* t);
 	int Leaves(BTNode<T>* t);
 	BTNode<T>* Copy(BTNode<T>* t);
@@ -79,8 +77,7 @@ void BinaryTree<T>::Exchanges(BTNode<T>* t)
 	{
 		Exchanges(t->lChild);
 		Exchanges(t->rChild);
-		BTNode<T>* q = new BTNode<T>;
-		q = t->lChild;
+		BTNode<T>* q = t->lChild;
 		t->lChild = t->rChild;
 		t->rChild = q;
 	}
@@ -94,16 +91,17 @@ int BinaryTree<T>::Leaves()
 template<class T >
 int BinaryTree<T>::Leaves(BTNode<T>* t)
 {
-	if (t)
+	if (t != NULL)
 	{
-		Leaves(t->lChild);
-		Leaves(t->rChild);
 		if (t->lChild == NULL&&t->rChild == NULL)
 		{
-			i++;
+                  return 1;
 		}
+                else{
+                  return Leaves(t->lChild) + Leaves(t->rChild);
+                }
 	}
-	return i;
+	return 0;
 }
 
 template<class T>
